@@ -1,0 +1,579 @@
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@700&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #fce4ec;
+  font-family: 'Comic Neue', sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+.top-left {
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  font-size: 26px;
+  font-family: 'Berlin Sans FB Demi';
+  color: #6a1b9a;
+}
+
+.title {
+    font-size: 56px;
+    font-family: 'Bahnschrift SemiBold Condensed';
+    color: #d81b60;
+    text-align: center;
+    min-height: 60px;
+  }  
+
+.blink {
+  animation: blink 3s infinite;
+}
+
+@keyframes blink {
+  0%, 60%, 100% {
+    opacity: 1;
+  }
+  25%, 75% {
+    opacity: 0;
+  }
+}
+
+.start-button {
+  margin-top: 70px;
+  padding: 12px 24px;
+  font-size: 20px;
+  background-color: #ab47bc;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.start-button:hover {
+  background-color: #8e24aa;
+}
+
+/* === For SKILLS.HTML === */
+
+.skills-title {
+    text-align: center;
+    font-size: 32px;
+    margin-top: 110px;
+    color: purple; /* change this line */
+    font-family: 'Berlin Sans FB Demi', sans-serif;
+  }
+  
+.main-skill-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+
+  }
+  
+  .main-skill-container .skill-box {
+    height: 80px;
+    font-size: 20px;
+    background-color: #ce93d8;
+    color: white;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s, background-color 0.3s;
+    text-decoration: none;
+  }
+  
+  .main-skill-container .skill-box:hover {
+    transform: scale(1.05);
+    background-color: #ab47bc;
+  }
+  
+  /* === For EASY-SKILLS.HTML === */
+  .grid-skill-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    justify-items: center;
+    padding: 20px;
+  }
+  
+  .grid-skill-container .skill-box {
+    width: 140px;
+    height: 140px;
+    background-color: #ce93d8;
+    color: white;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: transform 0.3s, background-color 0.3s;
+  }
+  
+  .grid-skill-container .skill-box:hover {
+    transform: scale(1.05);
+    background-color: #ab47bc;
+  }
+  
+  .grid-skill-container .icon {
+    font-size: 32px;
+    margin-bottom: 8px;
+  }
+  
+  .grid-skill-container .label {
+    font-size: 16px;
+  }
+  
+  .grid-skill-container .fruit-box {
+    grid-column: span 2; /* Make this box span the full width */
+    text-align: center;
+  }
+
+
+
+  .activity-title {
+    text-align: center;
+    font-size: 32px;
+    margin-top: 30px;
+    color: purple;
+  }
+  
+  .alphabet-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    margin-top: 30px;
+  }
+  
+  .alphabet-card {
+    position: relative;
+    width: 250px;
+    height: 250px;
+    border-radius: 15px;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 60px;
+    font-weight: bold;
+  }
+  
+  .letter-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;  /* Ensures the letter is above the background */
+  }
+  
+  .pronunciation-btn {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: #ce93d8;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  
+  .swipe-button {
+    background-color: #ab47bc;
+    color: white;
+    padding: 10px 20px;
+    margin: 20px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 20px;
+  }
+  
+  .navigation-buttons {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    max-width: 250px;
+  }
+  
+
+  .section-title {
+    text-align: center;
+    font-size: 32px;
+    color: #6a0dad;
+    margin-bottom: 20px;
+  }
+  
+  .letter-card {
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+    position: relative;
+    border-radius: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    background-color: #fff;
+    overflow: hidden;
+  }
+  
+  .number-background {
+    width: 100%;
+    height: 100%;
+    background-size: contain; /* better than cover for smaller image */
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  .controls {
+    text-align: center;
+    margin-top: 20px;
+  }
+  
+  .controls button {
+    font-size: 24px;
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    border-radius: 10px;
+    background-color: #ffc107;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .controls button:hover {
+    background-color: #ff9800;
+  }
+  
+
+  body {
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    background-color: #f0f8ff;
+    margin: 0;
+    padding: 20px;
+  }
+  
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .color-card {
+    width: 300px;
+    height: 300px;  
+    margin: 0 auto 20px;
+    position: relative;
+    border: 5px solid #ccc;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  }
+  
+  .color-background {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .color-name {
+    background-color: rgba(255, 255, 255, 0.7);
+    padding: 10px 20px;
+    border-radius: 10px;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .color-controls {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+  }
+  
+  button {
+    padding: 10px 15px;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    background-color: #4CAF50;
+    color: white;
+    transition: background-color 0.3s;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
+
+  body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #fdf6e3;
+    text-align: center;
+  }
+  
+  .title {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .card {
+    position: relative;
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+    border: 5px solid #ccc;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    background-color: #fff;
+  }
+  
+  .shape-background {
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  
+  .shape-name {
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    font-size: 1.5em;
+    color: #fff;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 5px 0;
+    font-weight: bold;
+  }
+  
+  .buttons {
+    margin-top: 20px;
+  }
+  
+  .skill-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: #fdfdfd;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    text-decoration: none;
+    color: black;
+    transition: transform 0.2s ease;
+    cursor: pointer;
+  }
+  
+  .skill-box:hover {
+    transform: scale(1.05);
+    background-color: #ffe082;
+  }
+    
+  body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 20px;
+    background-color: #f0f8ff;
+  }
+  
+  .page-title {
+    margin-bottom: 20px;
+    font-size: 2em;
+    color: #333;
+  }
+  
+  .flag-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    gap: 15px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .flag-box {
+    background-color: white;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    aspect-ratio: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .flag-box img {
+    width: 80%;
+    height: auto;
+    margin: 10px 0;
+  }
+  
+  .flag-name {
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #444;
+  }
+  
+  .fullscreen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .fullscreen-content {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    text-align: center;
+  }
+  
+  .fullscreen-content img {
+    max-width: 300px;
+    height: auto;
+  }
+  
+  .fullscreen-content button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+  }
+  
+
+  body {
+    font-family: 'Comic Sans MS', sans-serif;
+    background-color: #f0f9ff;
+    text-align: center;
+    padding: 30px;
+  }
+  
+  .quiz-container {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 8px;
+    width: 90%;
+    max-width: 900px;
+    margin: auto;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    border: 3px solid #aed581;
+  }
+  
+  #question {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  #options button {
+    display: inline-block;
+    margin: 10px;
+    padding: 15px 25px;
+    font-size: 18px;
+    border-radius: 8px;
+    border: none;
+    background-color: #e1f5fe;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  #options button:hover {
+    background-color: #045175;
+  }
+  
+  #next-btn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #aed581;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 18px;
+  }
+  
+  #score, #timer {
+    font-size: 18px;
+    margin-bottom: 15px;
+  }
+  
+
+  .quiz-page {
+  background: linear-gradient(135deg, #f0f4c3, #b2dfdb);
+  font-family: 'Arial Rounded MT Bold', sans-serif;
+  text-align: center;
+  padding: 30px;
+}
+
+.quiz-container {
+  background: white;
+  padding: 25px;
+  border-radius: 20px;
+  max-width: 600px;
+  margin: auto;
+  box-shadow: 0 12px 25px rgba(0, 0, 0, 0.2);
+  border: 3px solid #81c784;
+}
+
+#timer {
+  font-weight: bold;
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.login-container {
+  max-width: 300px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #fff8dc;
+  border-radius: 15px;
+  border: 2px dashed #ffa726;
+  text-align: center;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.login-container input, .login-container button {
+  display: block;
+  width: 90%;
+  margin: 10px auto;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+.login-container button {
+  background-color: #8d2ea7;
+  color: white;
+}
+
+.login-container button:hover {
+  background-color: #8d2ea7;
+}

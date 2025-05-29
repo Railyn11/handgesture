@@ -1,0 +1,67 @@
+<!DOCTYPE html> 
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Skill Levels</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="skills-page">
+  <h1 class="skills-title">Choose Your Skill Level</h1>
+  <div class="skills-container main-skill-container">
+    <a href="easy-skills.html" class="skill-box">Basic Skills</a>
+    <a href="medium-skills.html" class="skill-box">Medium Skills</a>
+    <a href="hard-skills.html" class="skill-box">Hard Skills</a>
+    <a href="quizzes.html" class="skill-box">Quizzes</a>
+  </div>
+
+  <!-- Logout Button -->
+<div style="text-align:center; margin-top: 30px; padding: 10px; border-radius: 8px;">
+  <button id="logout-btn" style="display:none; color: white; background-color: #6a0dad; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer;">
+    Logout
+  </button>
+</div>
+
+
+  <!-- Firebase and Logout Script -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/11.8.1/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyDvvbbcLP45ImWjrhK4Q1xS986laKxW8mg",
+      authDomain: "halaquiz-61733.firebaseapp.com",
+      databaseURL: "https://halaquiz-61733-default-rtdb.firebaseio.com",
+      projectId: "halaquiz-61733",
+      storageBucket: "halaquiz-61733.firebasestorage.app",
+      messagingSenderId: "134760010211",
+      appId: "1:134760010211:web:c6829bbb6b5b86c617d0d6",
+      measurementId: "G-J53ZMZHRY7"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    const logoutBtn = document.getElementById('logout-btn');
+
+    onAuthStateChanged(auth, user => {
+      if (user) {
+        logoutBtn.style.display = "inline-block";
+      } else {
+        logoutBtn.style.display = "none";
+      }
+    });
+
+    logoutBtn.addEventListener('click', () => {
+      signOut(auth).then(() => {
+        alert("Logged out successfully.");
+        // Optionally, redirect to login page or reload page:
+        // location.href = 'index.html';
+        location.reload();
+      }).catch(error => {
+        console.error("Logout error:", error);
+      });
+    });
+  </script>
+</body>
+</html>

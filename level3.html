@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Level 3 Quiz</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: #fff8e1;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .quiz-container {
+      max-width: 600px;
+      margin: auto;
+      background: #ffffff;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      border: 3px solid #ffd54f;
+    }
+
+    .quiz-container h2 {
+      color: #ff6f00;
+    }
+
+    .question {
+      font-size: 20px;
+      margin-bottom: 15px;
+      color: #4e342e;
+    }
+
+    #options button {
+      display: block;
+      margin: 10px auto;
+      padding: 12px;
+      width: 80%;
+      font-size: 18px;
+      border: none;
+      border-radius: 8px;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+      transition: transform 0.2s ease;
+    }
+
+    #options button:nth-child(1) {
+      background-color: #ff6f61;
+    }
+    #options button:nth-child(2) {
+      background-color: #4caf50;
+    }
+    #options button:nth-child(3) {
+      background-color: #2196f3;
+    }
+    #options button:nth-child(4) {
+      background-color: #ffb300;
+    }
+    #options button:active {
+      transform: scale(0.95);
+    }
+
+    .timer,
+    .score {
+      font-size: 18px;
+      margin-bottom: 10px;
+      color: #6a1b9a;
+    }
+
+    .start-btn {
+      padding: 12px 25px;
+      font-size: 18px;
+      border-radius: 8px;
+      border: none;
+      background-color: #81c784;
+      cursor: pointer;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 22px;
+      color: #2e7d32;
+    }
+  </style>
+
+  <!-- Firebase SDKs -->
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+  <script>
+    // TODO: Replace with your Firebase config
+  const firebaseConfig = {
+    apiKey: "AIzaSyDvvbbcLP45ImWjrhK4Q1xS986laKxW8mg",
+    authDomain: "halaquiz-61733.firebaseapp.com",
+    databaseURL: "https://halaquiz-61733-default-rtdb.firebaseio.com",
+    projectId: "halaquiz-61733",
+    storageBucket: "halaquiz-61733.firebasestorage.app",
+    messagingSenderId: "134760010211",
+    appId: "1:134760010211:web:c6829bbb6b5b86c617d0d6",
+    measurementId: "G-J53ZMZHRY7"
+  };
+
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+</head>
+<body>
+  <div class="quiz-container" id="start-screen">
+    <h2>Level 3 Quiz</h2>
+    <p>This quiz has 10 random questions.</p>
+    <button class="start-btn" onclick="startQuiz()">Start Quiz</button>
+  </div>
+
+  <div class="quiz-container" id="quiz-screen" style="display: none;">
+    <div class="score" id="score">Score: 0</div>
+    <div class="timer">Time Left: <span id="time">10</span>s</div>
+    <div class="question" id="question"></div>
+    <div class="options" id="options"></div>
+    <button class="start-btn" onclick="nextQuestion()" id="next-btn" disabled>Next</button>
+  </div>
+
+  <div class="quiz-container" id="result-screen" style="display: none;">
+    <h2 id="result"></h2>
+    <button class="start-btn" onclick="startQuiz()">Retake Quiz</button>
+  </div>
+
+  <script>
+    const questions = [
+      { question: "Which country's flag has red and white stripes?", options: ["USA", "France", "Italy", "Canada"], answer: "USA" },
+      { question: "Which flag has a red maple leaf?", options: ["Canada", "Japan", "Australia", "Germany"], answer: "Canada" },
+      { question: "Which flag is all red with a white cross?", options: ["Switzerland", "Denmark", "Norway", "Finland"], answer: "Switzerland" },
+      { question: "5 + 3 = ?", options: ["7", "8", "9", "6"], answer: "8" },
+      { question: "10 - 4 = ?", options: ["5", "6", "7", "4"], answer: "6" },
+      { question: "What colors are on the US flag?", options: ["Red, White, Blue", "Green, Yellow, Blue", "Red, Yellow, Black", "Blue, White, Orange"], answer: "Red, White, Blue" },
+      { question: "Which flag has a red circle on a white background?", options: ["Japan", "Bangladesh", "Turkey", "South Korea"], answer: "Japan" },
+      { question: "Which flag has horizontal black, red, and yellow stripes?", options: ["Germany", "Belgium", "Spain", "Italy"], answer: "Germany" },
+      { question: "What is 6 + 6?", options: ["11", "12", "13", "14"], answer: "12" },
+      { question: "What is 14 - 7?", options: ["6", "7", "8", "9"], answer: "7" },
+      
+      { question: "Which country's flag has a red maple leaf?", options: ["USA", "Canada", "UK", "Australia"], answer: "Canada" },
+  { question: "What colors are on the flag of the United States?", options: ["Red, White, Blue", "Green, Yellow, Blue", "Red, Yellow, Black", "Blue, White, Orange"], answer: "Red, White, Blue" },
+  { question: "Which flag has a red circle on a white background?", options: ["Japan", "Bangladesh", "Turkey", "South Korea"], answer: "Japan" },
+  { question: "Which country’s flag has a green star on a red background?", options: ["Morocco", "Mexico", "Portugal", "Vietnam"], answer: "Morocco" },
+  { question: "Which flag has horizontal stripes of black, red, and yellow?", options: ["Germany", "Belgium", "Spain", "Italy"], answer: "Germany" },
+  { question: "Which flag has a white cross on a red background?", options: ["Switzerland", "Denmark", "Norway", "Sweden"], answer: "Switzerland" },
+  { question: "Which country’s flag has a red dragon?", options: ["China", "Wales", "Bhutan", "Vietnam"], answer: "Wales" },
+  { question: "Which flag is made of red and white vertical stripes with a blue square and white stars?", options: ["USA", "Liberia", "Chile", "Costa Rica"], answer: "USA" },
+  { question: "Which flag has a crescent moon and star?", options: ["Turkey", "India", "Egypt", "Iran"], answer: "Turkey" },
+  { question: "Which flag has a blue background with a yellow cross?", options: ["Sweden", "Finland", "Norway", "Iceland"], answer: "Sweden" },
+  { question: "Which country’s flag has a sun with rays and three stars?", options: ["Philippines", "Argentina", "Brazil", "Malaysia"], answer: "Philippines" },
+  { question: "Which flag has red, white, and blue horizontal stripes with a white star in the middle?", options: ["Cuba", "Chile", "Thailand", "Russia"], answer: "Cuba" },
+    { question: "5 + 3 = ?", options: ["7", "8", "9", "6"], answer: "8" },
+    { question: "10 - 4 = ?", options: ["5", "6", "7", "4"], answer: "6" },
+    { question: "7 + 2 = ?", options: ["8", "9", "10", "7"], answer: "9" },
+  { question: "What is 5 + 3?", options: ["7", "8", "9", "6"], answer: "8" },
+  { question: "What is 10 - 4?", options: ["6", "5", "7", "8"], answer: "6" },
+  { question: "What is 7 + 2?", options: ["8", "9", "10", "7"], answer: "9" },
+  { question: "What is 15 - 5?", options: ["9", "10", "11", "12"], answer: "10" },
+  { question: "What is 6 + 6?", options: ["11", "12", "13", "14"], answer: "12" },
+  { question: "What is 14 - 7?", options: ["6", "7", "8", "9"], answer: "7" },
+  { question: "What is 9 + 1?", options: ["9", "10", "11", "8"], answer: "10" },
+  { question: "What is 20 - 15?", options: ["6", "5", "4", "3"], answer: "5" },
+  { question: "What is 8 + 7?", options: ["14", "15", "16", "13"], answer: "15" },
+  { question: "What is 13 - 6?", options: ["7", "6", "8", "9"], answer: "7" },
+  { question: "What is 4 + 5?", options: ["9", "10", "8", "7"], answer: "9" },
+  { question: "What is 12 - 4?", options: ["7", "8", "9", "6"], answer: "8" }
+  ];
+
+
+    let shuffled = [];
+    let current = 0;
+    let score = 0;
+    let timer;
+    let timeLeft = 10;
+
+    function startQuiz() {
+      shuffled = questions.sort(() => 0.5 - Math.random()).slice(0, 10);
+      current = 0;
+      score = 0;
+      document.getElementById("score").textContent = "Score: 0";
+      document.getElementById("start-screen").style.display = "none";
+      document.getElementById("result-screen").style.display = "none";
+      document.getElementById("quiz-screen").style.display = "block";
+      document.getElementById("next-btn").disabled = true;
+      showQuestion();
+    }
+
+    function showQuestion() {
+      clearInterval(timer);
+      timeLeft = 10;
+      document.getElementById("time").textContent = timeLeft;
+      timer = setInterval(() => {
+        timeLeft--;
+        document.getElementById("time").textContent = timeLeft;
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          showAnswer(null);
+        }
+      }, 1000);
+
+      const q = shuffled[current];
+      document.getElementById("question").textContent = q.question;
+      const optionsContainer = document.getElementById("options");
+      optionsContainer.innerHTML = "";
+
+      q.options.forEach(option => {
+        const btn = document.createElement("button");
+        btn.textContent = option;
+        btn.onclick = () => {
+          clearInterval(timer);
+          showAnswer(option);
+        };
+        optionsContainer.appendChild(btn);
+      });
+
+      document.getElementById("next-btn").disabled = true;
+    }
+
+    function showAnswer(selected) {
+      const q = shuffled[current];
+      const buttons = document.querySelectorAll("#options button");
+
+      buttons.forEach(btn => {
+        btn.disabled = true;
+        if (btn.textContent === q.answer) {
+          btn.style.backgroundColor = "#4caf50";
+        } else {
+          btn.style.backgroundColor = "#e57373";
+        }
+      });
+
+      if (selected === q.answer) {
+        score++;
+        document.getElementById("score").textContent = `Score: ${score}`;
+      }
+
+      document.getElementById("next-btn").disabled = false;
+    }
+
+    function nextQuestion() {
+      current++;
+      if (current >= shuffled.length) {
+        document.getElementById("quiz-screen").style.display = "none";
+        document.getElementById("result-screen").style.display = "block";
+        document.getElementById("result").textContent = `You scored ${score} out of ${shuffled.length}!`;
+        saveScore(score);
+      } else {
+        showQuestion();
+      }
+    }
+
+    // Save score in Firebase Realtime Database for current user
+    function saveScore(score) {
+      const user = firebase.auth().currentUser;
+      if (!user) {
+        console.log("User not logged in. Score not saved.");
+        return;
+      }
+      const scoreData = {
+        score: score,
+        timestamp: Date.now(),
+        quizLevel: 3
+      };
+      firebase.database().ref("scores/" + user.uid).push(scoreData)
+        .then(() => {
+          console.log("Score saved successfully.");
+        })
+        .catch(error => {
+          console.error("Error saving score:", error);
+        });
+    }
+
+    // Disable next button initially (user must answer first)
+    document.querySelector("#quiz-screen button.start-btn").disabled = true;
+
+    // Optional: Listen for auth state change (for login UI etc.)
+    firebase.auth().onAuthStateChanged(user => {
+      if (user) {
+        console.log("User logged in:", user.email);
+      } else {
+        console.log("User not logged in.");
+      }
+    });
+  </script>
+</body>
+</html>
