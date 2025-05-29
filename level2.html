@@ -253,27 +253,28 @@
     }
 
     // Save score in Firebase Realtime Database for current user
-    function saveScore(score) {
-      const user = firebase.auth().currentUser;
-      if (!user) {
-        console.log("User not logged in. Score not saved.");
-        return;
-      }
-const scoreData = {
-  score: score,
-  timestamp: new Date().toLocaleString(), // e.g. "5/29/2025, 3:15:30 PM"
-  quizLevel: 2
-};
+function saveScore(score) {
+  const user = firebase.auth().currentUser;
+  if (!user) {
+    console.log("User not logged in. Score not saved.");
+    return;
+  }
 
+  const scoreData = {
+    score: score,
+    timestamp: new Date().toLocaleString(),
+    quizLevel: 2
+  };
 
-      };
-      firebase.database().ref("scores/" + user.uid).push(scoreData)
-        .then(() => {
-          console.log("Score saved successfully.");
-        })
-        .catch(error => {
-          console.error("Error saving score:", error);
-        });
+  firebase.database().ref("scores/" + user.uid).push(scoreData)
+    .then(() => {
+      console.log("Score saved successfully.");
+    })
+    .catch(error => {
+      console.error("Error saving score:", error);
+    });
+}
+
 
     // Disable next button initially (user must answer first)
     document.querySelector("#quiz-screen button.start-btn").disabled = true;
