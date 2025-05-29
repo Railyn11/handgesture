@@ -207,7 +207,7 @@ function saveScore(score) {
 
   const scoreData = {
     score: score,
-    timestamp: Date.now(),
+  timestamp: new Date().toLocaleString(), // e.g. "5/29/2025, 3:15:30 PM"
     quizLevel: 1
   };
 
