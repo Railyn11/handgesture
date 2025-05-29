@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Flags</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1 class="page-title">Flags</h1>
+  <div class="flag-grid" id="flag-grid">
+    <!-- Flags will be inserted here by JavaScript -->
+  </div>
+
+  <script>
+    const flags = [
+      { name: "Philippines", image: "https://upload.wikimedia.org/wikipedia/commons/9/99/Flag_of_the_Philippines.svg" },
+      { name: "Japan", image: "https://i.natgeofe.com/k/988c4715-bba9-4697-ae66-9ded8cfabed3/japan-flag.gif" },
+      { name: "USA", image: "https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" },
+      { name: "UK", image: "https://upload.wikimedia.org/wikipedia/en/a/ae/Flag_of_the_United_Kingdom.svg" },
+      { name: "France", image: "https://upload.wikimedia.org/wikipedia/en/c/c3/Flag_of_France.svg" },
+      { name: "Germany", image: "https://upload.wikimedia.org/wikipedia/en/b/ba/Flag_of_Germany.svg" },
+      { name: "Brazil", image: "https://upload.wikimedia.org/wikipedia/en/0/05/Flag_of_Brazil.svg" },
+      { name: "India", image: "https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" },
+      { name: "China", image: "https://www.worldatlas.com/upload/a6/ee/9d/shutterstock-104282006.jpg" },
+      { name: "Canada", image: "https://upload.wikimedia.org/wikipedia/en/c/cf/Flag_of_Canada.svg" }
+    ];
+
+    const grid = document.getElementById("flag-grid");
+
+    flags.forEach(flag => {
+      const box = document.createElement("div");
+      box.className = "flag-box";
+      box.innerHTML = `
+        <img src="${flag.image}" alt="${flag.name}" />
+        <div class="flag-name">${flag.name}</div>
+      `;
+      box.onclick = () => {
+        const fullscreen = document.createElement("div");
+        fullscreen.className = "fullscreen";
+        fullscreen.innerHTML = `
+          <div class="fullscreen-content">
+            <img src="${flag.image}" alt="${flag.name}" />
+            <h2>${flag.name}</h2>
+            <button onclick="this.parentElement.parentElement.remove()">Close</button>
+          </div>
+        `;
+        document.body.appendChild(fullscreen);
+      };
+      grid.appendChild(box);
+    });
+  </script>
+</body>
+</html>

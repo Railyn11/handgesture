@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Alphabets</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+  <h1 class="activity-title">Alphabets</h1>
+  
+  <div class="alphabet-container">
+    <div class="alphabet-card" id="alphabet-card">
+      <div class="letter">A</div>
+      <div class="letter-background"></div>
+      <button class="pronunciation-btn" onclick="playPronunciation()">🔊</button>
+    </div>
+    
+    <div class="navigation-buttons">
+      <button class="swipe-button left" onclick="prevLetter()">❮</button>
+      <button class="swipe-button right" onclick="nextLetter()">❯</button>
+    </div>
+  </div>
+
+  <script src="alphabet.js"></script>
+</body>
+</html>

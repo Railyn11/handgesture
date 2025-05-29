@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Fruits & Veggies</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #fffde7;
+      padding: 20px;
+    }
+
+    h1 {
+      margin-bottom: 500px;
+    }
+
+    .grid-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+      max-width: 800px;
+      margin: auto;
+    }
+
+    .item {
+      cursor: pointer;
+      border: 2px solid #ccc;
+      border-radius: 10px;
+      padding: 10px;
+      background-color: #fff;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+    }
+
+    .item:hover {
+      transform: scale(1.05);
+    }
+
+    .item img {
+      width: 100%;
+      border-radius: 8px;
+    }
+
+    .item-name {
+      margin-top: 8px;
+      font-weight: bold;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      max-width: 90%;
+      max-height: 90%;
+    }
+
+    .modal-content img {
+      width: 100%;
+      max-height: 300px;
+      object-fit: contain;
+    }
+
+    .modal-content .caption {
+      margin-top: 10px;
+      font-size: 20px;
+      font-weight: bold;
+    }
+
+    .close-btn {
+      margin-top: 10px;
+      padding: 5px 15px;
+      background: tomato;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .close-btn:hover {
+      background: darkred;
+    }
+  </style>
+</head>
+<body>
+  <h1>Fruits & Veggies</h1>
+  <div class="grid-container" id="grid-container">
+    <!-- JS will populate this -->
+  </div>
+
+  <!-- Modal -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <img id="modal-img" src="" alt="">
+      <div class="caption" id="modal-caption"></div>
+      <button class="close-btn" onclick="closeModal()">Close</button>
+    </div>
+  </div>
+
+  <script>
+    const items = [
+      { name: "Apple", image: "https://www.collinsdictionary.com/images/full/apple_158989157.jpg" },
+      { name: "Banana", image: "http://www.itsjustabadday.com/wp-content/uploads/2013/12/banana.jpg" },
+      { name: "Carrots", image: "http://pngimg.com/uploads/carrot/carrot_PNG4985.png" },
+      { name: "Broccoli", image: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Broccoli_and_cross_section_edit.jpg/1200px-Broccoli_and_cross_section_edit.jpg" },
+      { name: "Strawberry", image: "https://upload.wikimedia.org/wikipedia/commons/2/29/PerfectStrawberry.jpg" },
+      { name: "Mango", image: "http://wallsdesk.com/wp-content/uploads/2017/01/Mango-Photos.jpg" },
+      { name: "Grapes", image: "https://freshgenfoods.com/wp-content/uploads/2021/11/Red-Grapes-scaled.jpg" },
+      { name: "Pineapple", image: "https://2.bp.blogspot.com/-y-ZIxyoQ1E0/We1-saEos_I/AAAAAAAAAVg/K05ULyUHhMg7tAeChms4DI0LYqZ78sX4ACLcBGAs/s1600/Pineapple.jpg" },
+      { name: "Watermelon", image: "https://img.freepik.com/premium-photo/watermelon-fruit-with-cut-piece-isolated-white-background_285124-2.jpg" },
+      { name: "Lemon", image: "https://static.vecteezy.com/system/resources/previews/008/300/132/large_2x/fresh-lemon-isolated-on-white-background-photo.jpg" },
+      { name: "Coconut", image: "https://istudy.pk/wp-content/uploads/2016/07/bigstock-Coconut-isolated-on-white-back-70653349.jpg" },
+      { name: "Dragon Fruit", image: "https://img.freepik.com/premium-photo/dragon-fruits-fruit-white-background_140916-15250.jpg" },
+      { name: "Cabbage", image: "https://image.freepik.com/free-photo/cabbage-isolated-white-background_26628-330.jpg" },
+      { name: "Lettuce", image: "https://i.pinimg.com/originals/58/42/10/584210d3e40ed884f21ae7306437a2ec.jpg" },
+      { name: "Okra (Lady Finger)", image: "https://static.vecteezy.com/system/resources/previews/011/996/913/non_2x/okra-isolated-on-white-background-free-photo.jpg" },
+      { name: "Radish", image: "https://png.pngtree.com/thumb_back/fw800/background/20240411/pngtree-fresh-radish-on-white-background-image_15654414.jpg" },
+      { name: "Cauliflower", image: "https://img.freepik.com/premium-photo/fresh-cauliflower-isolated-white-background_33736-2684.jpg?w=2000" },
+      { name: "Cucumber", image: "https://image.freepik.com/free-photo/cucumber-isolated-white-background_127657-4988.jpg" },
+      { name: "Potato", image: "http://www.valleyspuds.com/wp-content/uploads/Russet-Potatoes-cut.jpg" },
+      { name: "Tomato", image: "https://static.vecteezy.com/system/resources/previews/006/596/928/original/fresh-tomatoes-and-sliced-on-a-white-background-illustration-vector.jpg" }
+
+    ];
+
+    const container = document.getElementById("grid-container");
+
+    items.forEach(item => {
+      const div = document.createElement("div");
+      div.className = "item";
+      div.innerHTML = `
+        <img src="${item.image}" alt="${item.name}">
+        <div class="item-name">${item.name}</div>
+      `;
+      div.onclick = () => showModal(item.image, item.name);
+      container.appendChild(div);
+    });
+
+    function showModal(imgSrc, name) {
+      document.getElementById("modal-img").src = imgSrc;
+      document.getElementById("modal-caption").textContent = name;
+      document.getElementById("modal").style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("modal").style.display = "none";
+    }
+  </script>
+</body>
+</html>

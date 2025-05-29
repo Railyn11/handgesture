@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Animals</title>
+  <link rel="stylesheet" href="animals.css" />
+</head>
+<body>
+  <h1 class="page-title">Animals</h1>
+  <div class="animal-gallery" id="animal-gallery"></div>
+
+  <!-- Fullscreen modal -->
+  <div class="modal" id="animalModal">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <h2 id="modalAnimalName"></h2>
+    <img id="modalAnimalImage" alt="Animal Image" />
+  </div>
+
+  <script src="animals.js"></script>
+</body>
+</html>
