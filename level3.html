@@ -259,11 +259,12 @@
         console.log("User not logged in. Score not saved.");
         return;
       }
-      const scoreData = {
-        score: score,
-        timestamp: Date.now(),
-        quizLevel: 3
-      };
+const scoreData = {
+  score: score,
+  timestamp: new Date().toLocaleString(), // e.g. "5/29/2025, 3:15:30 PM"
+  quizLevel: 3
+};
+
       firebase.database().ref("scores/" + user.uid).push(scoreData)
         .then(() => {
           console.log("Score saved successfully.");
