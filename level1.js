@@ -205,11 +205,11 @@ function saveScore(score) {
     return;
   }
 
-  const scoreData = {
-    score: score,
+const scoreData = {
+  score: score,
   timestamp: new Date().toLocaleString(), // e.g. "5/29/2025, 3:15:30 PM"
-    quizLevel: 1
-  };
+  quizLevel: 1
+};
 
   const userScoreRef = ref(database, "scores/" + user.uid);
   push(userScoreRef, scoreData)
